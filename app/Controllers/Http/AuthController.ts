@@ -1,16 +1,27 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class AuthController {
-    public async login({ request, auth }: HttpContextContract) {
+    public async login({ request, auth, response }: HttpContextContract) {
         const email = request.input('email')
         const password = request.input('password')
     
-        const token = await auth.use('api').attempt(email, password)
-        return token.toJSON()
+        try {
+            const token = await auth.use('api').attempt(email, password)
+            return token.toJSON()
+        } catch (error) {
+            if (error.code === 'E_INVALID_AUTH_UID' || error.code === 'E_INVALID_AUTH_PASSWORD')
+                return response.unauthorized({ error: "Credenciais inválidas." })
+            
+            return response.status(500).send({ error })
+        }
     }
 
-    public async logout({ request, auth }: HttpContextContract) {
-        await auth.use('api').logout()
-        return { msg: "Usuário deslogou." }
+    public async logout({ auth, response }: HttpContextContract) {
+        try {
+            await auth.use('api').logout()
+            return response.ok({ success: "Usuário deslogou." })
+        } catch (error) {            
+            return response.status(500).send({ error })
+        }
     }
 }
