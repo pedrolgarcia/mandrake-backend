@@ -10,16 +10,16 @@ export default class AuthController {
             return token.toJSON()
         } catch (error) {
             if (error.code === 'E_INVALID_AUTH_UID' || error.code === 'E_INVALID_AUTH_PASSWORD')
-                return response.unauthorized({ error: "Credenciais inválidas." })
+                return response.unauthorized({ error: 'Credenciais inválidas.' })
             
-            return response.status(500).send({ error })
+            return response.internalServerError({ error: 'Ocorreu um problema ao fazer login', details: error })
         }
     }
 
     public async logout({ auth, response }: HttpContextContract) {
         try {
             await auth.use('api').logout()
-            return response.ok({ success: "Usuário deslogou." })
+            return response.ok('Usuário deslogou.')
         } catch (error) {            
             return response.status(500).send({ error })
         }
