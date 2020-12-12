@@ -71,7 +71,7 @@ export default class AuthMiddleware {
     try {
       await next()
     } catch (error) {            
-      return response.status(500).send({ error })
+      return response.internalServerError({ error: 'Ocorreu um problema', details: error })
     }
   }
 }
