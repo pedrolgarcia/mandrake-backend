@@ -22,7 +22,7 @@ export default class AuthMiddleware {
    * of the mentioned guards and that guard will be used by the rest of the code
    * during the current request.
    */
-  protected async authenticate (auth: HttpContextContract['auth'], guards: any[]) {
+  protected async authenticate (auth: HttpContextContract['auth'], guards: any[], response: HttpContextContract['response']) {
     /**
      * Hold reference to the guard last attempted within the for loop. We pass
      * the reference of the guard to the "AuthenticationException", so that
@@ -48,6 +48,7 @@ export default class AuthMiddleware {
     /**
      * Unable to authenticate using any guard
      */
+    return response.unauthorized({ error: "Usuário não autorizado. Token inválido ou expirado." })
     throw new AuthenticationException(
       'Unauthorized access',
       'E_UNAUTHORIZED_ACCESS',
@@ -59,13 +60,18 @@ export default class AuthMiddleware {
   /**
    * Handle request
    */
-  public async handle ({ auth }: HttpContextContract, next: () => Promise<void>, customGuards: string[]) {
+  public async handle ({ auth, response }: HttpContextContract, next: () => Promise<void>, customGuards: string[]) {
     /**
      * Uses the user defined guards or the default guard mentioned in
      * the config file
      */
     const guards = customGuards.length ? customGuards : [auth.name]
-    await this.authenticate(auth, guards)
-    await next()
+    await this.authenticate(auth, guards, response)
+    
+    try {
+      await next()
+    } catch (error) {            
+      return response.status(500).send({ error })
+    }
   }
 }
