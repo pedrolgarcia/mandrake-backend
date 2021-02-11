@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  db:
+    build: './database'
+    container_name: postgres-mandrake
+    restart: always
+    ports:
+      - "15432:5432"
+    environment:
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: mandrake
+    networks:
+      - postgres-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-mandrake
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "postgres@docker.com"
+      PGADMIN_DEFAULT_PASSWORD: "docker"
+    ports:
+      - "16543:80"
+    depends_on:
+      - db
+    networks:
+      - postgres-network
+
+  app:
+    build: "."
+    container_name: api-mandrake
+    volumes:
+      - .:/home/dev/app
+    ports:
+      - "3333:3333"
+    depends_on:
+      - db
+
+networks: 
+  postgres-network:
+    driver: bridge

@@ -6,6 +6,7 @@
     "build": "node ace build --production",
     "start": "node server.js",
     "dev": "node ace serve --watch",
+    "migrate": "node ace migration:run",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write ."
   },
@@ -29,7 +30,6 @@
     "@adonisjs/lucid": "^10.0.0",
     "@adonisjs/repl": "^1.0.0",
     "luxon": "^1.25.0",
-    "pg": "^8.5.1",
     "proxy-addr": "^2.0.6",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.19"
