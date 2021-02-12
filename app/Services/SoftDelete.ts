@@ -7,12 +7,10 @@ export const softDeleteQuery = (query: ModelQueryBuilderContract<typeof BaseMode
 }
 
 export const softDelete = async (row: LucidRow, column: string = 'deletedAt') => {
-    if(row[column]) {
-        if(row[column].isLuxonDateTime) {
-            row[column] = DateTime.local();
-        } else {
-            row[column] = true;
-        }
+    try {
+        row[column] = DateTime.local();
         await row.save();
+    } catch (error) {
+        console.log(error)
     }
 }

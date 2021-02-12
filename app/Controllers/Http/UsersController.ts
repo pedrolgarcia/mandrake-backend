@@ -22,4 +22,16 @@ export default class UsersController {
             return response.internalServerError({ error: 'Ocorreu um problema ao criar o usuário', details: error })
         }
     }
+
+    public async destroy({ request, response, params }: HttpContextContract) {
+        try {
+            const user = await User.findOrFail(params.id)
+            await user.softDelete()
+            
+            return response.ok('Usuário excluído com sucesso!')
+        } catch(error) {
+            console.log(error)
+            return response.internalServerError({ error: 'Ocorreu um problema ao excluir o usuário', details: error })
+        }
+    }
 }
