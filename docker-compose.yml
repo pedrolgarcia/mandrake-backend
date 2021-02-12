@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   db:
-    build: './database'
+    image: postgres
     container_name: postgres-mandrake
     restart: always
     ports:
