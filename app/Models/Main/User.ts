@@ -9,7 +9,34 @@ export default class User extends BaseModel {
 	public id: number
 
 	@column()
+	public first_name: string
+
+	@column()
+	public last_name: string
+
+	@column()
 	public email: string
+
+	@column()
+	public cpf: string
+
+	@column()
+	public birth_date: Date
+	
+	@column()
+	public phone_number: string
+
+	@column()
+	public genderId: number
+
+	@column()
+	public pending_approval: boolean
+
+	@column()
+	public approved: boolean
+
+	@column()
+	public active: boolean
 
 	@column({ serializeAs: null })
 	public password: string

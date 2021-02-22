@@ -47,6 +47,15 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
 			debug: false,
     },
 
+    sqlite: {
+      client: 'sqlite',
+      connection: {
+        filename: 'mandrake.sqlite3',
+      },
+      useNullAsDefault: true,
+      healthCheck: false,
+    },
+
   },
 
   /*
