@@ -33,5 +33,5 @@ configure({
     runMigrations,
     startHttpServer,
   ],
-  // after: [rollbackMigrations],
+  after: [rollbackMigrations],
 })

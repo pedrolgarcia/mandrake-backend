@@ -1,32 +1,49 @@
 import test from 'japa'
 import supertest from 'supertest'
+
 import Database from '@ioc:Adonis/Lucid/Database'
-import User from 'App/Models/Main/User'
-import { DateTime } from 'luxon'
+import { UserFactory } from 'Database/factories'
 
 const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`
 
 test.group('Authentication', (group) => {
-    // group.beforeEach(async () => {
-    //     await Database.beginGlobalTransaction()
-    // })
+    group.beforeEach(async () => {
+        await Database.beginGlobalTransaction()
+    })
 
-    // group.afterEach(async () => {
-    //     await Database.rollbackGlobalTransaction()
-    // })
+    group.afterEach(async () => {
+        await Database.rollbackGlobalTransaction()
+    })
     
     test('should return JWT token when authenticate with valid credentials', async (assert) => {
-        // const user = await User.create({
-        //     email: 'pedro@teste.com.br',
-        //     password: '123456',
-        //     genderId: 1,
-        //     birth_date: new Date('1998-08-09'),
-        //     cpf: '111-111-111.11',
-        //     first_name: 'Pedro',
-        //     last_name: 'Pedro',
-        //     phone_number: '2121212121'
-        // });
+        let password = '123456';
 
-        // assert.equal(user.email, 'pedro@teste.com.br');
+        const user = await UserFactory.merge({ password }).create();
+
+        const response = await supertest(BASE_URL).post('/api/v1/login')
+            .send({
+                username: user.email,
+                password,
+            })
+            .expect(200);
+
+        assert.exists(response.body.token);
+    })
+
+    test('should not authenticate with invalid credentials', async (assert) => {
+        let password = '123456';
+        let wrongPassword = '12345';
+
+        const user = await UserFactory.merge({ password }).create();
+
+        const response = await supertest(BASE_URL).post('/api/v1/login')
+            .send({
+                username: user.email,
+                password: wrongPassword,
+            })
+            .expect(401);
+
+        assert.exists(response.body.error);
+        assert.equal(response.body.error, 'Credenciais inválidas.');
     })
 })

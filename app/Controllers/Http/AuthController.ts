@@ -2,11 +2,11 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class AuthController {
     public async login({ request, auth, response }: HttpContextContract) {
-        const email = request.input('email')
+        const username = request.input('username')
         const password = request.input('password')
     
         try {
-            const token = await auth.use('api').attempt(email, password)
+            const token = await auth.use('api').attempt(username, password)
             return token.toJSON()
         } catch (error) {
             if (error.code === 'E_INVALID_AUTH_UID' || error.code === 'E_INVALID_AUTH_PASSWORD')
