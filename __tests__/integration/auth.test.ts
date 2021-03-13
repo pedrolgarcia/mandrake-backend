@@ -15,7 +15,7 @@ test.group('Authentication', (group) => {
         await Database.rollbackGlobalTransaction()
     })
     
-    test('should return JWT token when authenticate with valid credentials', async (assert) => {
+    test('should return JWT when authenticate with valid credentials', async (assert) => {
         let password = '123456';
 
         const user = await UserFactory.merge({ password }).create();

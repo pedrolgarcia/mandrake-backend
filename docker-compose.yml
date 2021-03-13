@@ -26,15 +26,15 @@ services:
     networks:
       - postgres-network
 
-  app:
-    build: "."
-    container_name: api-mandrake
-    volumes:
-      - .:/home/dev/app
-    ports:
-      - "3333:3333"
-    depends_on:
-      - db
+  # app:
+  #   build: "."
+  #   container_name: api-mandrake
+  #   volumes:
+  #     - .:/home/dev/app
+  #   ports:
+  #     - "3333:3333"
+  #   depends_on:
+  #     - db
 
 networks: 
   postgres-network:
