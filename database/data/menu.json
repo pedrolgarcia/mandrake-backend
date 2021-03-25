@@ -1,0 +1,28 @@
+[
+  { 
+    "id": 1,
+    "name": "Dashboard",
+    "route": "/",
+    "icon": "space_dashboard"
+  },
+  { 
+    "id": 2,
+    "name": "Usuários",
+    "route": "/users",
+    "icon": "people"
+  },
+  { 
+    "id": 3,
+    "name": "Configurações",
+    "route": "/settings",
+    "icon": "settings",
+    "submenu": [
+      { 
+        "id": 1,
+        "name": "Tema",
+        "route": "/settings/theme",
+        "icon": "palette"
+      }
+    ]
+  }
+]
