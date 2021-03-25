@@ -1,8 +1,14 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, beforeFind, beforeFetch, BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, beforeFind, beforeFetch, BaseModel, manyToMany, ManyToMany, hasMany, HasMany, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+
+import Role from './Role'
+import Email from './Email'
+import Gender from './Gender'
+import Permission from './Permission'
 
 import { softDelete, softDeleteQuery } from '../../Services/SoftDelete'
+import Address from './Address'
 
 export default class User extends BaseModel {
 	@column({ isPrimary: true })
@@ -29,6 +35,9 @@ export default class User extends BaseModel {
 	@column()
 	public genderId: number
 
+	@belongsTo(() => Gender)
+  public gender: BelongsTo<typeof Gender>
+
 	@column()
 	public pending_approval: boolean
 
@@ -51,7 +60,19 @@ export default class User extends BaseModel {
 	public updatedAt: DateTime
 
 	@column.dateTime({ serializeAs: null})
-  	public deletedAt: DateTime
+	public deletedAt: DateTime
+
+	@hasMany(() => Email)
+	public emails: HasMany<typeof Email>
+
+	@hasMany(() => Address)
+	public addresses: HasMany<typeof Address>
+	
+	@manyToMany(() => Role)
+	public roles: ManyToMany<typeof Role>
+	
+	@manyToMany(() => Permission)
+	public permissions: ManyToMany<typeof Permission>
 
 	@beforeSave()
 	public static async hashPassword(user: User) {
@@ -61,10 +82,10 @@ export default class User extends BaseModel {
 	}
 
 	@beforeFind()
-  	public static softDeletesFind = softDeleteQuery;
+	public static softDeletesFind = softDeleteQuery;
 
-  	@beforeFetch()
-  	public static softDeletesFetch = softDeleteQuery;
+	@beforeFetch()
+	public static softDeletesFetch = softDeleteQuery;
   
 	public async softDelete(column?: string) {
 		await softDelete(this, column);

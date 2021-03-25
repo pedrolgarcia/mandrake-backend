@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon';
-import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm';
-import State from 'App/Models/Main/State';
+import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm';
+
+import State from './State';
+import Address from './Address';
 
 export default class Country extends BaseModel {
   @column({ isPrimary: true })
@@ -15,8 +17,11 @@ export default class Country extends BaseModel {
   @column()
   public name: string
   
-  @hasOne(() => State)
-  public state: HasOne<typeof State>
+  @hasMany(() => State)
+  public states: HasMany<typeof State>
+
+  @hasMany(() => Address)
+	public addresses: HasMany<typeof Address>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

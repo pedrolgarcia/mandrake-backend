@@ -12,7 +12,7 @@ export default class Companies extends BaseSchema {
       table.string('email', 180).nullable();
       table.string('logo_url', 255).defaultTo('/uploads/images/default/default_company.png');
       table.text('description').nullable();
-      table.string('foundation_year', 5).nullable();
+      table.integer('foundation_year', 5).nullable();
       
       table.boolean('pending_approval').defaultTo(false);
       table.boolean('approved').defaultTo(true);
