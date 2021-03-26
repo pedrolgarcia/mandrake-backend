@@ -11,7 +11,9 @@ export default class Role extends BaseModel {
   @column()
 	public name: string
 
-  @manyToMany(() => User)
+  @manyToMany(() => User, {
+    pivotTable: 'users_roles',
+  })
   public users: ManyToMany<typeof User>
 
   @manyToMany(() => Permission)

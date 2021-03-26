@@ -12,7 +12,7 @@ export default class Country extends BaseModel {
 	public iso: string
 
   @column()
-	public iso_3: string
+	public iso_3?: string
 
   @column()
   public name: string

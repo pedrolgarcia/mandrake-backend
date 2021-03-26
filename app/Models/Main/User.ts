@@ -6,9 +6,11 @@ import Role from './Role'
 import Email from './Email'
 import Gender from './Gender'
 import Permission from './Permission'
+import Address from './Address'
+import Notification from './Notification'
+import PhoneNumber from './PhoneNumber'
 
 import { softDelete, softDeleteQuery } from '../../Services/SoftDelete'
-import Address from './Address'
 
 export default class User extends BaseModel {
 	@column({ isPrimary: true })
@@ -65,10 +67,18 @@ export default class User extends BaseModel {
 	@hasMany(() => Email)
 	public emails: HasMany<typeof Email>
 
+	@hasMany(() => PhoneNumber)
+	public phones: HasMany<typeof PhoneNumber>
+
 	@hasMany(() => Address)
 	public addresses: HasMany<typeof Address>
+
+	@hasMany(() => Notification)
+	public notifications: HasMany<typeof Notification>
 	
-	@manyToMany(() => Role)
+	@manyToMany(() => Role, {
+		pivotTable: 'users_roles',
+	})
 	public roles: ManyToMany<typeof Role>
 	
 	@manyToMany(() => Permission)

@@ -9,6 +9,7 @@
 		"migrate": "node ace migration:run",
 		"seed": "node ace db:seed",
 		"migrate-dev": "node ace migration:run && node ace db:seed && node ace serve --watch",
+		"reset": "node ace migration:rollback && node ace migration:run && node ace db:seed",
 		"lint": "eslint . --ext=.ts",
 		"format": "prettier --write .",
 		"test": "node -r @adonisjs/assembler/build/register japaFile.ts"

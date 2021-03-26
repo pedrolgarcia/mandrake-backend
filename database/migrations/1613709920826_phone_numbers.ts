@@ -8,9 +8,9 @@ export default class PhoneNumbers extends BaseSchema {
       table.increments('id').primary();
       table.string('title', 64).notNullable();
       table.string('number', 32).notNullable();
-      table.string('ddd', 5).nullable();
+      table.string('area_code', 5).nullable();
       table.string('country_code', 5).nullable();
-      table.string('type', 64).notNullable();
+      table.string('type', 64).nullable();
 
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
 
