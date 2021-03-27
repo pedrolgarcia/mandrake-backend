@@ -4,7 +4,7 @@ import supertest from 'supertest'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { UserFactory } from 'Database/factories'
 
-const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}`
+const BASE_URL = `http://${process.env.HOST}:${process.env.PORT}/api/v1/`
 
 test.group('Authentication', (group) => {
     group.beforeEach(async () => {
@@ -20,7 +20,7 @@ test.group('Authentication', (group) => {
 
         const user = await UserFactory.merge({ password }).create();
 
-        const response = await supertest(BASE_URL).post('/api/v1/login')
+        const response = await supertest(BASE_URL).post('login')
             .send({
                 username: user.email,
                 password,
@@ -36,7 +36,7 @@ test.group('Authentication', (group) => {
 
         const user = await UserFactory.merge({ password }).create();
 
-        const response = await supertest(BASE_URL).post('/api/v1/login')
+        const response = await supertest(BASE_URL).post('login')
             .send({
                 username: user.email,
                 password: wrongPassword,
