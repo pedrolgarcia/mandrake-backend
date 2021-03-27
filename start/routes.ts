@@ -16,7 +16,7 @@ Route.group(() => {
             Route.resource('menu', 'MenuController').apiOnly()
         }).prefix('settings')
 
-    }).middleware(['auth'])
+    }).middleware(['auth', 'acl:user'])
 
 }).prefix('api/v1')
 

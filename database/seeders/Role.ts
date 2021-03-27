@@ -8,7 +8,7 @@ export default class RoleSeeder extends BaseSeeder {
 }
 
 const roles = [
-  { "id": 1, "name": "Administrador" },
-  { "id": 2, "name": "Operador" },
-  { "id": 3, "name": "Usuário" }
+  { "id": 1, "name": "Administrador", "codename": "admin" },
+  { "id": 2, "name": "Operador", "codename": "operator" },
+  { "id": 3, "name": "Usuário", "codename": "user" }
 ]
