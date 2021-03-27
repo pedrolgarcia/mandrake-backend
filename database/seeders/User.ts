@@ -21,6 +21,10 @@ const users = [
       active: true,
       birth_date: new Date('08-09-1998'),
       genderId: 1,
+      gender: {
+        id: 1,
+        name: 'Masculino'
+      },
       phone_number: '21968312308',
       pending_approval: false,
       approved: true,
@@ -37,6 +41,10 @@ const users = [
       active: true,
       birth_date: new Date('08-09-1998'),
       genderId: 1,
+      gender: {
+        id: 1,
+        name: 'Masculino'
+      },
       phone_number: '21968312309',
       pending_approval: false,
       approved: true

@@ -23,7 +23,7 @@ export default class UsersController {
         }
     }
 
-    public async destroy({ request, response, params }: HttpContextContract) {
+    public async destroy({ response, params }: HttpContextContract) {
         try {
             const user = await User.findOrFail(params.id)
             await user.softDelete()

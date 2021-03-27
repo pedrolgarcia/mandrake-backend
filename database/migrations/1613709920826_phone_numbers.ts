@@ -11,8 +11,9 @@ export default class PhoneNumbers extends BaseSchema {
       table.string('area_code', 5).nullable();
       table.string('country_code', 5).nullable();
       table.string('type', 64).nullable();
+      table.integer('user_id');
 
-      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
+      table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
 
       table.dateTime("deleted_at").defaultTo(null);
       table.timestamps(true);

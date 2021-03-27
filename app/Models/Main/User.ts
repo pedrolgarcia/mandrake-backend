@@ -77,7 +77,7 @@ export default class User extends BaseModel {
 	public notifications: HasMany<typeof Notification>
 	
 	@manyToMany(() => Role, {
-		pivotTable: 'users_roles',
+		pivotTable: 'users_roles'
 	})
 	public roles: ManyToMany<typeof Role>
 	

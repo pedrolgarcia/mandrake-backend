@@ -11,9 +11,11 @@ export default class Notifications extends BaseSchema {
       table.string('link').nullable();
       table.boolean('readed').defaultTo(false);
       table.json('data').nullable();
+      table.integer('sender_id');
+      table.integer('receiver_id');
       
-      table.integer('sender_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
-      table.integer('receiver_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
+      table.foreign('sender_id').references('id').inTable('users').onDelete('CASCADE');
+      table.foreign('receiver_id').references('id').inTable('users').onDelete('CASCADE');
 
       table.timestamps(true)
     })

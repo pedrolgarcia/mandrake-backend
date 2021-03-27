@@ -6,8 +6,12 @@ export default class SubmenusRoles extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary();
-      table.integer('submenu_id').unsigned().references('id').inTable('submenus').onDelete('CASCADE');
-      table.integer('role_id').unsigned().references('id').inTable('roles').onDelete('CASCADE');
+      table.integer('submenu_id');
+      table.integer('role_id');
+
+      table.foreign('submenu_id').references('id').inTable('submenus').onDelete('CASCADE');
+      table.foreign('role_id').references('id').inTable('roles').onDelete('CASCADE');
+
       table.timestamps(true)
     })
   }

@@ -9,7 +9,7 @@ export default class Role extends BaseModel {
   public id: number
 
   @column()
-	public name: string
+  public name: string
 
   @manyToMany(() => User, {
     pivotTable: 'users_roles',

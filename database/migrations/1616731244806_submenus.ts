@@ -10,8 +10,9 @@ export default class Submenus extends BaseSchema {
       table.string('url').notNullable();
       table.string('icon').nullable();
       table.integer('order').nullable();
+      table.integer('menu_id');
 
-      table.integer('menu_id').unsigned().references('id').inTable('menus');
+      table.foreign('menu_id').references('id').inTable('menus');
 
       table.timestamps(true)
     })

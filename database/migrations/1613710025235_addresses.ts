@@ -14,11 +14,15 @@ export default class Adresses extends BaseSchema {
       table.string('city').notNullable();
       table.string('latitude').nullable();
       table.string('longitude').nullable();
+      table.integer('country_id');
+      table.integer('state_id');
+      table.integer('user_id');
+      table.integer('company_id');
 
-      table.integer('country_id').unsigned().references('id').inTable('countries');
-      table.integer('state_id').unsigned().references('id').inTable('states');
-      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE');
-      table.integer('company_id').unsigned().references('id').inTable('companies').onDelete('CASCADE');
+      table.foreign('country_id').references('id').inTable('countries');
+      table.foreign('state_id').references('id').inTable('states');
+      table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
+      table.foreign('company_id').references('id').inTable('companies').onDelete('CASCADE');
 
       table.timestamps(true);
     })

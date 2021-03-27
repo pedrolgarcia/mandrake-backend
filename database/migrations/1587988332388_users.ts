@@ -15,15 +15,17 @@ export default class UsersSchema extends BaseSchema {
       table.date('birth_date').nullable();
       table.string('phone_number', 32).nullable();
       table.string('remember_me_token').nullable();
+      table.integer('gender_id');
       
-      table.integer('gender_id').unsigned().references('id').inTable('genders');
-
       table.boolean('pending_approval').defaultTo(false);
       table.boolean('approved').defaultTo(true);
-
+      
+      table.foreign('gender_id').references('id').inTable('genders');
+      
       table.boolean('active').defaultTo(true);
       table.dateTime("deleted_at").defaultTo(null);
       table.timestamps(true);
+
     })
   }
 

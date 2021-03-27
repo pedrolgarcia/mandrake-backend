@@ -8,8 +8,9 @@ export default class States extends BaseSchema {
       table.increments('id').primary();
       table.string('iso', 2).notNullable();
       table.string('name', 108).notNullable();
+      table.integer('country_id');
 
-      table.integer('country_id').unsigned().references('id').inTable('countries');
+      table.foreign('country_id').references('id').inTable('countries');
 
       table.timestamps(true);
     })
