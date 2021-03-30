@@ -6,6 +6,8 @@ export default class MenuSeeder extends BaseSeeder {
     await Promise.all(menus.map(async (menu) => {
       let data = await Menu.create(menu);
       data.related('submenus').createMany(menu.submenus);
+
+      data.related('roles').attach(menu.roles);
     }))
   }
 }
@@ -16,20 +18,23 @@ const menus = [
     "url": "/",
     "icon": "space_dashboard",
     "order": 1,
-    "submenus": []
+    "roles": [1, 2],
+    "submenus": [],
   },
   {
     "name": "Usuários",
     "url": "/users",
     "icon": "people",
     "order": 2,
-    "submenus": []
+    "roles": [1, 2],
+    "submenus": [],
   },
   {
     "name": "Configurações",
     "url": "/settings",
     "icon": "settings",
     "order": 3,
+    "roles": [2],
     "submenus": [
       {
         "name": "Tema",
