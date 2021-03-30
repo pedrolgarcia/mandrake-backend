@@ -5,8 +5,6 @@ export default class Acl {
     const user = request.ctx?.auth.user;
     await user?.preload('roles');
 
-    console.log(allowedRoles)
-
     let canAccess = false;
 
     if(allowedRoles.includes("*")) {
