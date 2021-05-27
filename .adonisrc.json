@@ -28,5 +28,15 @@
   ],
   "aceProviders": [
     "@adonisjs/repl"
+  ],
+  "metaFiles": [
+    {
+      "pattern": "public/**",
+      "reloadServer": false
+    },
+    {
+      "pattern": "assets/**",
+      "reloadServer": false
+    }
   ]
 }
