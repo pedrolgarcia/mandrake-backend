@@ -4,6 +4,7 @@ import { BaseModel, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm
 import User from './User'
 import Permission from './Permission'
 import Menu from './Menu'
+import Submenu from './Submenu'
 
 export default class Role extends BaseModel {
   @column({ isPrimary: true })
@@ -27,6 +28,11 @@ export default class Role extends BaseModel {
     pivotTable: 'menus_roles'
   })
   public menus: ManyToMany<typeof Menu>
+
+  @manyToMany(() => Submenu, {
+    pivotTable: 'submenus_roles',
+  })
+  public submenus: ManyToMany<typeof Submenu>
   
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

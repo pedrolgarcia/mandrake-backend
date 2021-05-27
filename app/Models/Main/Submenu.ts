@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, ManyToMany, manyToMany } from '@ioc:Adonis/Lucid/Orm'
 
 import Menu from './Menu'
+import Role from './Role'
 
 export default class Submenu extends BaseModel {
   @column({ isPrimary: true })
@@ -24,6 +25,11 @@ export default class Submenu extends BaseModel {
 
   @belongsTo(() => Menu)
   public menu: BelongsTo<typeof Menu>
+
+  @manyToMany(() => Role, {
+    pivotTable: 'submenus_roles'
+  })
+  public roles: ManyToMany<typeof Role>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

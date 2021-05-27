@@ -24,6 +24,8 @@ export default class Adresses extends BaseSchema {
       table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
       table.foreign('company_id').references('id').inTable('companies').onDelete('CASCADE');
 
+      table.boolean('active').defaultTo(true);
+      table.dateTime("deleted_at").defaultTo(null);
       table.timestamps(true);
     })
   }

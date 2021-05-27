@@ -15,6 +15,7 @@ export default class PhoneNumbers extends BaseSchema {
 
       table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
 
+      table.boolean('active').defaultTo(true);
       table.dateTime("deleted_at").defaultTo(null);
       table.timestamps(true);
     })
