@@ -7,7 +7,8 @@ export default class Permissions extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary();
       table.string('name').notNullable();
-      table.string('codename').nullable();
+      table.string('policy').nullable();
+      table.string('description').nullable();
       table.timestamps(true);
     })
   }

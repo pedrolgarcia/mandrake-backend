@@ -9,11 +9,15 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   
   public async handle(error: any, ctx: HttpContextContract) {
     if (error.code === 'E_AUTHORIZATION_FAILURE') {
-      return ctx.response.forbidden({ error: 'Usuário não tem permissão para realizar essa ação', details: error.message.replace('E_AUTHORIZATION_FAILURE: ', '') })
+      return ctx.response.forbidden({ error: 'Usuário não tem permissão para realizar essa ação' })
     }
 
     if(error.code === 'E_INVALID_AUTH_UID' || error.code === 'E_INVALID_AUTH_PASSWORD') {
-      return ctx.response.unauthorized({ error: 'Credenciais inválidas.' })
+      return ctx.response.forbidden({ error: 'Credenciais inválidas.' })
+    }
+
+    if(error.code === 'E_UNAUTHORIZED_ACCESS') {
+      return ctx.response.unauthorized({ error: 'Usuário não autenticado' })
     }
 
     if(error.status === 500) {
